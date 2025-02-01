@@ -25,12 +25,12 @@ pipeline{
         }
         stage('tag'){
             steps{
-                sh 'docker tag backup kulashekaralwarn/mock'
+                sh 'docker tag backup kulashekaralwarn/mock3'
             }
         }
         stage('push'){
             steps{
-                sh 'docker push kulashekaralwarn/mock'
+                sh 'docker push kulashekaralwarn/mock3'
             }
         }
     }
