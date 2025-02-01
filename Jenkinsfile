@@ -30,6 +30,7 @@ pipeline{
         }
         stage('push'){
             steps{
+                 sh 'echo "@docker#123" | docker login -u "kulashekaralwarn" --password-stdin'
                 sh 'docker push kulashekaralwarn/mock3'
             }
         }
