@@ -4,8 +4,18 @@ pipeline{
     stages{
         stage('docker install'){
             steps{ 
-                echo 'docker installed'
-                sh 'docker --version'
+                script {
+                    def dockerInstalled = sh(script: 'which docker', returnStatus: true) == 0
+                    if (!dockerInstalled) {
+                        sh '''
+                        sudo yum update -y
+                        sudo yum install -y docker
+                        sudo systemctl start docker
+                        sudo systemctl enable docker
+                        sudo usermod -aG docker jenkins
+                        '''
+                    }
+                }
             }
         }
         stage('pull'){
@@ -42,6 +52,5 @@ pipeline{
         success{
             sh 'docker rm -f chandu'
         }
-    }
-    
+    }   
 }
